@@ -19,8 +19,6 @@
 #include "analyzer/protocol/icmp/ICMP.h"
 #include "analyzer/protocol/udp/UDP.h"
 
-#include "analyzer/protocol/stepping-stone/SteppingStone.h"
-#include "analyzer/protocol/stepping-stone/events.bif.h"
 #include "analyzer/protocol/backdoor/BackDoor.h"
 #include "analyzer/protocol/backdoor/events.bif.h"
 #include "analyzer/protocol/interconn/InterConn.h"
@@ -97,11 +95,6 @@ NetSessions::NetSessions()
 	udp_conns.SetDeleteFunc(bro_obj_delete_func);
 	fragments.SetDeleteFunc(bro_obj_delete_func);
 
-	if ( stp_correlate_pair )
-		stp_manager = new analyzer::stepping_stone::SteppingStoneManager();
-	else
-		stp_manager = 0;
-
 	discarder = new Discarder();
 	if ( ! discarder->IsActive() )
 		{
@@ -150,7 +143,6 @@ NetSessions::~NetSessions()
 	delete pkt_profiler;
 	Unref(arp_analyzer);
 	delete discarder;
-	delete stp_manager;
 	}
 
 void NetSessions::Done()

@@ -27,7 +27,6 @@ declare(PDict,FragReassembler);
 class Discarder;
 class PacketFilter;
 
-namespace analyzer { namespace stepping_stone { class SteppingStoneManager; } }
 namespace analyzer { namespace arp { class ARP_Analyzer; } }
 
 struct SessionStats {
@@ -118,8 +117,6 @@ public:
 	TimerMgr* LookupTimerMgr(const TimerMgr::Tag* tag, bool create = true);
 
 	void ExpireTimerMgrs();
-
-	analyzer::stepping_stone::SteppingStoneManager* GetSTPManager()	{ return stp_manager; }
 
 	unsigned int CurrentConnections()
 		{
@@ -236,7 +233,6 @@ protected:
 
 	analyzer::arp::ARP_Analyzer* arp_analyzer;
 
-	analyzer::stepping_stone::SteppingStoneManager* stp_manager;
 	Discarder* discarder;
 	PacketFilter* packet_filter;
 	OSFingerprint* SYN_OS_Fingerprinter;
