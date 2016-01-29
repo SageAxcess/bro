@@ -34,14 +34,6 @@
 
 #include "analyzer/Manager.h"
 
-// These represent NetBIOS services on ephemeral ports.  They're numbered
-// so that we can use a single int to hold either an actual TCP/UDP server
-// port or one of these.
-enum NetBIOS_Service {
-	NETBIOS_SERVICE_START = 0x10000L,	// larger than any port
-	NETBIOS_SERVICE_DCE_RPC,
-};
-
 NetSessions* sessions;
 
 void TimerMgrExpireTimer::Dispatch(double t, int is_expire)
