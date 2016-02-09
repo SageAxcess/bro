@@ -268,7 +268,9 @@ void IRC_Analyzer::DeliverStream(int length, const u_char* line, bool orig)
 				{
 				if ( parts[i][0] == '@' )
 					parts[i] = parts[i].substr(1);
-				set->Assign(new StringVal(parts[i].c_str()), 0);
+				Val* idx = new StringVal(parts[i].c_str());
+				set->Assign(idx, 0);
+				Unref(idx);
 				}
 			vl->append(set);
 
@@ -981,7 +983,6 @@ void IRC_Analyzer::DeliverStream(int length, const u_char* line, bool orig)
 
 		val_list* vl = new val_list;
 		vl->append(BuildConnVal());
-		vl->append(new Val(orig, TYPE_BOOL));
 		vl->append(new Val(orig, TYPE_BOOL));
 		vl->append(new StringVal(nickname.c_str()));
 		vl->append(new StringVal(message.c_str()));

@@ -1,4 +1,18 @@
 
+2.4-272 | 2016-02-08 14:27:58 -0800
+
+  * fix memory leaks in find_all() and IRC analyzer. (Dirk Leinenbach)
+
+2.4-270 | 2016-02-08 13:00:57 -0800
+
+  * Removed duplicate parameter for IRC "QUIT" event handler. (Mark Taylor)
+
+2.4-267 | 2016-02-01 12:38:32 -0800
+
+  * Add testcase for CVE-2015-3194. (Johanna Amann)
+
+  * Fix portability issue with use of mktemp. (Daniel Thayer)
+
 2.4-260 | 2016-01-28 08:05:27 -0800
 
   * Correct irc_privmsg_message event handling bug. (Mark Taylor)
