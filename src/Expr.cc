@@ -2043,6 +2043,8 @@ Val* CondExpr::Eval(Frame* f) const
 	if ( ! is_vector(op1) )
 		{ // scalar is easy
 		Val* v = op1->Eval(f);
+		if(!v)
+			return 0;
 		int false_eval = v->IsZero();
 		Unref(v);
 
