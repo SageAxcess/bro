@@ -688,7 +688,11 @@ void BroFile::InitEncrypt(const char* keyfile)
 	// Depending on the OpenSSL version, EVP_*_cbc()
 	// returns a const or a non-const.
 	EVP_CIPHER* cipher_type = (EVP_CIPHER*) EVP_bf_cbc();
+#if OPENSSL_VERSION_NUMBER >= 0x10100001L
+	cipher_ctx = EVP_CIPHER_CTX_new();
+#else
 	cipher_ctx = new EVP_CIPHER_CTX;
+#endif
 
 	unsigned char secret[EVP_PKEY_size(pub_key)];
 	unsigned char* psecret = secret;
