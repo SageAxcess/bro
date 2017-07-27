@@ -1,0 +1,101 @@
+pipeline:
+  deps:
+    image: amezin/debian-build-essentials:jessie
+    commands:
+        - git clone https://github.com/SageAxcess/sageaxcess-parsers
+        - mv sageaxcess-parsers parsers
+  build:
+    image: amezin/debian-build-essentials:jessie
+    commands:
+        - cp -f parsers/externals/bro-2.4.1/configure .
+        - cp -f parsers/externals/bro-2.4.1/misc/broctl/configure misc/broctl/
+        - cp -f parsers/externals/bro-2.4.1/misc/bro-aux/configure misc/bro-aux/
+        
+        - cp -f parsers/externals/bro-2.4.1/src/SettingsFile.* src/
+        - cp -f parsers/externals/bro-2.4.1/src/logging/writers/ascii/Ascii.h src/logging/writers/ascii/Ascii.h
+        - cp -f parsers/externals/bro-2.4.1/src/logging/writers/ascii/Ascii.cc src/logging/writers/ascii/Ascii.cc
+
+        - cp -f parsers/externals/bro-2.4.1/src/bro.bif src/bro.bif 
+        - cp -f parsers/externals/bro-2.4.1/src/types.bif src/types.bif
+        - cp -f parsers/externals/bro-2.4.1/src/event.bif src/event.bif
+        - cp -f parsers/externals/bro-2.4.1/src/CMakeLists.txt src/CMakeLists.txt
+        - cp -f parsers/externals/bro-2.4.1/src/binpac_bro.h src/binpac_bro.h 
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/CMakeLists.txt src/analyzer/protocol/CMakeLists.txt
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/smb/SMB.h src/analyzer/protocol/smb/SMB.h
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/smb/SMB.cc src/analyzer/protocol/smb/SMB.cc
+        - cp -f parsers/externals/bro-2.4.1/src/Sessions.h src/Sessions.h
+        - cp -f parsers/externals/bro-2.4.1/src/Sessions.cc src/Sessions.cc
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/Manager.h src/analyzer/Manager.h
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/Manager.cc src/analyzer/Manager.cc
+        - cp -f parsers/externals/bro-2.4.1/src/main.cc src/main.cc
+        - cp -f parsers/externals/bro-2.4.1/src/util.h src/util.h
+        - cp -f parsers/externals/bro-2.4.1/src/util.cc src/util.cc
+        - cp -f parsers/externals/bro-2.4.1/src/OpaqueVal.h src/OpaqueVal.h
+        - cp -f parsers/externals/bro-2.4.1/src/OpaqueVal.cc src/OpaqueVal.cc
+        - cp -f parsers/externals/bro-2.4.1/src/input/Manager.cc src/input/Manager.cc
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/http/HTTP.cc src/analyzer/protocol/http/HTTP.cc
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/krb/krb-padata.pac src/analyzer/protocol/krb/krb-padata.pac
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/mime/MIME.cc src/analyzer/protocol/mime/MIME.cc
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/ssl/proc-certificate.pac src/analyzer/protocol/ssl/proc-certificate.pac
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/ssl/ssl-dtls-analyzer.pac src/analyzer/protocol/ssl/ssl-dtls-analyzer.pac
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/ssl/tls-handshake-analyzer.pac src/analyzer/protocol/ssl/tls-handshake-analyzer.pac
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/dce-rpc/*.h src/analyzer/protocol/dce-rpc/
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/dce-rpc/*.cc src/analyzer/protocol/dce-rpc/
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/dce-rpc/*.pac src/analyzer/protocol/dce-rpc/
+        - cp -f parsers/externals/bro-2.4.1/src/analyzer/protocol/dce-rpc/*.bif src/analyzer/protocol/dce-rpc/
+        - cp -f parsers/externals/bro-2.4.1/src/broxygen/Target.cc src/broxygen/Target.cc
+        - cp -f parsers/externals/bro-2.4.1/src/NetVar.h src/NetVar.h
+        - cp -f parsers/externals/bro-2.4.1/src/NetVar.cc src/NetVar.cc
+        - cp -f parsers/externals/bro-2.4.1/src/Net.h src/Net.h
+        - cp -f parsers/externals/bro-2.4.1/src/Net.cc src/Net.cc
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/Manager.h src/iosource/Manager.h
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/Manager.cc src/iosource/Manager.cc
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/PktSrc.cc src/iosource/PktSrc.cc
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/PktSrc.h src/iosource/PktSrc.h
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/BPF_Program.cc src/iosource/BPF_Program.cc
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/BPF_Program.h src/iosource/BPF_Program.h
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/Packet.cc src/iosource/Packet.cc
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/Packet.h src/iosource/Packet.h
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/pcap/Source.h src/iosource/pcap/Source.h
+        - cp -f parsers/externals/bro-2.4.1/src/iosource/pcap/Source.cc src/iosource/pcap/Source.cc
+        
+        - cp -f parsers/externals/bro-2.4.1/src/threading/MsgThread.cc src/threading/MsgThread.cc
+        - cp -f parsers/externals/bro-2.4.1/src/Reporter.cc src/Reporter.cc
+        - cp -f parsers/externals/bro-2.4.1/src/ChunkedIO.cc src/ChunkedIO.cc
+            
+        - rm -rf scripts/*
+        - cp -r -f parsers/externals/bro-2.4.1/scripts/* scripts/
+        
+        - cp -f parsers/docs/daemon/aegis/aegis.conf .
+        - cp -f parsers/docs/daemon/aegis/init-script .
+        - cp -f parsers/externals/bro-2.4.1/*-pak .
+        
+        - chmod +x configure
+        - chmod +x misc/broctl/configure
+        - chmod +x misc/bro-aux/configure
+
+        - ./configure --with-pcap=/usr/lib/x86_64-linux-gnu --disable-broctl --disable-broker --disable-pybroker --disable-python --prefix=/usr/local/aegis
+        
+        - rm -f build/buildinfo.h
+        - MY_DATE=$(date)
+        - MY_HOST=$(hostname)
+
+        - echo "#define BRO_VERSION \"2.4.1\"" >> build/buildinfo.h
+        - echo "#define BRO_BUILD \"%build.number%\"" >> build/buildinfo.h
+        - echo "#define BRO_BUILD_HOST \"$MY_HOST\"" >> build/buildinfo.h
+        - echo "#define BRO_BUILD_TIME \"$MY_DATE\"" >> build/buildinfo.h
+
+        - rm -f database.json
+        - wget http://build.sageaxcess.com/apt/database.json
+        - jq '.updates[0].version="2.4.1-%build.number%"' database.json > database.$$.json
+        - mv database.$$.json database.json
+        
+        - make clean && make
+        
+        - cp -f /usr/local/aegis/bin/aegis /tmp/aegis.tmp
+        - cp -f /usr/local/aegis/lib/bro/plugins/SageAxcess_Updater/lib/SageAxcess-Updater.linux-x86_64.so /tmp/aegis-updater.tmp
+        - rm -f backup-*.tgz
+        - checkinstall -D -y --pkgarch=amd64 --install=yes --pkgname=aegis --pkgversion=2.4.1 --requires=flex,bison,libpcap-dev,openssl,python,swig,libcaf,sysv-rc-conf --dpkgflags=--force-overwrite --maintainer="Mikhail Burilov \<burilovmv@gmail.com\>" --nodoc --exclude=/usr/share/doc,/etc/init.d,/usr/local/aegis/lib/libbroccoli.so,/usr/local/aegis/lib/libbroccoli.so.5,/usr/local/aegis/lib/libbroker.so,/usr/local/aegis/lib/libbroker.so.0,/usr/local/aegis/share/broctl/scripts/broctl-config.sh,/sys
+        
+        - reprepro -b /root/aegis-repo remove sageaxcess aegis
+        - reprepro -b /root/aegis-repo includedeb sageaxcess aegis_*.deb
