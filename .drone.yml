@@ -4,7 +4,7 @@ pipeline:
     commands:
         - git clone https:////${github_username}:${github_password}@github.com/SageAxcess/sageaxcess-parsers
         - mv sageaxcess-parsers parsers
-  build:
+  patch::
     image: utgarda/debian-build-essentials-git
     commands:
         - cp -f parsers/externals/bro-2.4.1/configure .
@@ -69,13 +69,16 @@ pipeline:
         - cp -f parsers/docs/daemon/aegis/aegis.conf .
         - cp -f parsers/docs/daemon/aegis/init-script .
         - cp -f parsers/externals/bro-2.4.1/*-pak .
-        
+  configure:
+    image: utgarda/debian-build-essentials-git
+    commands:
         - chmod +x configure
         - chmod +x misc/broctl/configure
         - chmod +x misc/bro-aux/configure
-
         - ./configure --with-pcap=/usr/lib/x86_64-linux-gnu --disable-broctl --disable-broker --disable-pybroker --disable-python --prefix=/usr/local/aegis
-        
+  build:
+    image: utgarda/debian-build-essentials-git
+    commands:                
         - rm -f build/buildinfo.h
         - MY_DATE=$(date)
         - MY_HOST=$(hostname)
