@@ -1,12 +1,15 @@
 pipeline:
   deps:
+    secrets: [github_username, github_password]
     image: utgarda/debian-build-essentials-git
     commands:
-        - git clone https:////${github_username}:${github_password}@github.com/SageAxcess/sageaxcess-parsers
+        - git clone https://$${GITHUB_USERNAME}:$${GITHUB_PASSWORD}@github.com/SageAxcess/sageaxcess-parsers
         - mv sageaxcess-parsers parsers
+        - ls -l
   patch::
     image: utgarda/debian-build-essentials-git
     commands:
+        - ls -l
         - cp -f parsers/externals/bro-2.4.1/configure .
         - cp -f parsers/externals/bro-2.4.1/misc/broctl/configure misc/broctl/
         - cp -f parsers/externals/bro-2.4.1/misc/bro-aux/configure misc/bro-aux/
