@@ -1,18 +1,16 @@
 pipeline:
   deps:
     secrets: [github_username, github_password]
-    image: utgarda/debian-build-essentials-git
+    image: utgarda/debian-build-essentials-git-cmake
     commands:
         - git clone https://$${GITHUB_USERNAME}:$${GITHUB_PASSWORD}@github.com/SageAxcess/sageaxcess-parsers
         - mv sageaxcess-parsers parsers
         - ls -l
   patch::
-    image: utgarda/debian-build-essentials-git
+    image: utgarda/debian-build-essentials-git-cmake
     commands:
         - ls -l
         - cp -f parsers/externals/bro-2.4.1/configure .
-        - cp -f parsers/externals/bro-2.4.1/misc/broctl/configure misc/broctl/
-        - cp -f parsers/externals/bro-2.4.1/misc/bro-aux/configure misc/bro-aux/
         
         - cp -f parsers/externals/bro-2.4.1/src/SettingsFile.* src/
         - cp -f parsers/externals/bro-2.4.1/src/logging/writers/ascii/Ascii.h src/logging/writers/ascii/Ascii.h
@@ -73,14 +71,12 @@ pipeline:
         - cp -f parsers/docs/daemon/aegis/init-script .
         - cp -f parsers/externals/bro-2.4.1/*-pak .
   configure:
-    image: utgarda/debian-build-essentials-git
+    image: utgarda/debian-build-essentials-git-cmake
     commands:
         - chmod +x configure
-        - chmod +x misc/broctl/configure
-        - chmod +x misc/bro-aux/configure
         - ./configure --with-pcap=/usr/lib/x86_64-linux-gnu --disable-broctl --disable-broker --disable-pybroker --disable-python --prefix=/usr/local/aegis
   build:
-    image: utgarda/debian-build-essentials-git
+    image: utgarda/debian-build-essentials-git-cmake
     commands:                
         - rm -f build/buildinfo.h
         - MY_DATE=$(date)
