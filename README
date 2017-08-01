@@ -29,3 +29,8 @@ Vern Paxson & Robin Sommer,
 International Computer Science Institute &
 Lawrence Berkeley National Laboratory
 vern@icir.org / robin@icir.org
+
+To trigger a build of the Docker image with build dependencies,
+after updating [Dockerfile](Dockerfile), create a git tag like `buildimage-*` and push it 
+    
+    git tag -a buildimage-1.0 -m "bro build dependencies updated"
