@@ -1,11 +1,11 @@
 pipeline:
   deps:
-    image: amezin/debian-build-essentials:jessie
+    image: utgarda/debian-build-essentials-git
     commands:
-        - git clone https://github.com/SageAxcess/sageaxcess-parsers
+        - git clone https:////${github_username}:${github_password}@github.com/SageAxcess/sageaxcess-parsers
         - mv sageaxcess-parsers parsers
   build:
-    image: amezin/debian-build-essentials:jessie
+    image: utgarda/debian-build-essentials-git
     commands:
         - cp -f parsers/externals/bro-2.4.1/configure .
         - cp -f parsers/externals/bro-2.4.1/misc/broctl/configure misc/broctl/
