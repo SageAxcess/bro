@@ -88,7 +88,7 @@ pipeline:
         - echo "#define BRO_BUILD_TIME \"$MY_DATE\"" >> build/buildinfo.h
 
         - rm -f database.json
-        - wget http://build.sageaxcess.com/apt/database.json
+        - curl http://build.sageaxcess.com/apt/database.json -o database.json
         - jq '.updates[0].version="2.4.1-%build.number%"' database.json > database.$$.json
         - mv database.$$.json database.json
   make:
