@@ -1,13 +1,14 @@
 pipeline:
   clone:
+    image: plugins/git
     recursive: true
   deps:
     secrets: [github_username, github_password]
-    image: utgarda/debian-build-essentials-git-cmake
+    image: changedynamix/bro-build:latest
     commands:
         - git clone --recursive https://$${GITHUB_USERNAME}:$${GITHUB_PASSWORD}@github.com/SageAxcess/sageaxcess-parsers parsers
   patch:
-    image: utgarda/debian-build-essentials-git-cmake
+    image: changedynamix/bro-build:latest
     commands:
         - cp -f parsers/externals/bro-2.4.1/configure .
         
@@ -70,12 +71,12 @@ pipeline:
         - cp -f parsers/docs/daemon/aegis/init-script .
         - cp -f parsers/externals/bro-2.4.1/*-pak .
   configure:
-    image: utgarda/debian-build-essentials-git-cmake
+    image: changedynamix/bro-build:latest
     commands:
         - chmod +x configure
         - ./configure --with-pcap=/usr/lib/x86_64-linux-gnu --disable-broctl --disable-broker --disable-pybroker --disable-python --prefix=/usr/local/aegis
   build_info:
-    image: utgarda/debian-build-essentials-git-cmake
+    image: changedynamix/bro-build:latest
     commands:                
         - rm -f build/buildinfo.h
         - MY_DATE=$(date)
@@ -91,18 +92,18 @@ pipeline:
         - jq '.updates[0].version="2.4.1-%build.number%"' database.json > database.$$.json
         - mv database.$$.json database.json
   make:
-    image: utgarda/debian-build-essentials-git-cmake
+    image: changedynamix/bro-build:latest
     commands:                
         - make clean && make
   package:
-    image: utgarda/debian-build-essentials-git-cmake
+    image: changedynamix/bro-build:latest
     commands:                        
         - cp -f /usr/local/aegis/bin/aegis /tmp/aegis.tmp
         - cp -f /usr/local/aegis/lib/bro/plugins/SageAxcess_Updater/lib/SageAxcess-Updater.linux-x86_64.so /tmp/aegis-updater.tmp
         - rm -f backup-*.tgz
         - checkinstall -D -y --pkgarch=amd64 --install=yes --pkgname=aegis --pkgversion=2.4.1 --requires=flex,bison,libpcap-dev,openssl,python,swig,libcaf,sysv-rc-conf --dpkgflags=--force-overwrite --maintainer="Mikhail Burilov \<burilovmv@gmail.com\>" --nodoc --exclude=/usr/share/doc,/etc/init.d,/usr/local/aegis/lib/libbroccoli.so,/usr/local/aegis/lib/libbroccoli.so.5,/usr/local/aegis/lib/libbroker.so,/usr/local/aegis/lib/libbroker.so.0,/usr/local/aegis/share/broctl/scripts/broctl-config.sh,/sys
   publish_local:
-    image: utgarda/debian-build-essentials-git-cmake
+    image: changedynamix/bro-build:latest
     commands:                        
         - reprepro -b /root/aegis-repo remove sageaxcess aegis
         - reprepro -b /root/aegis-repo includedeb sageaxcess aegis_*.deb
