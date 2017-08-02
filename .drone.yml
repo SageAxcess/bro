@@ -6,7 +6,7 @@ pipeline:
     image: changedynamix/bro-build:latest
     commands:
         - git clone --recursive https://$${GITHUB_USERNAME}:$${GITHUB_PASSWORD}@github.com/SageAxcess/sageaxcess-parsers parsers
-  patch::
+  patch:
     image: changedynamix/bro-build:latest
     commands:
         - cp -f parsers/externals/bro-2.4.1/configure .
