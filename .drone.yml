@@ -5,6 +5,7 @@ pipeline:
   deps:
     secrets: [github_username, github_password]
     image: changedynamix/bro-build:latest
+    pull: true
     commands:
         - git clone --recursive https://$${GITHUB_USERNAME}:$${GITHUB_PASSWORD}@github.com/SageAxcess/sageaxcess-parsers parsers
   patch:
